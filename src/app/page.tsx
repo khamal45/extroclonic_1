@@ -17,6 +17,25 @@ export default function Home() {
           </ul>
         </li>
       </div>
+
+      <div className="main">
+        <div className="mainText">
+          <h2>Welcome To</h2>
+          <h1>EXTROCLONIC</h1>
+          <p>
+            Extroclonic merupakan sebuah Website Quiz yang menciptakan sebuah
+            arti dengan menggabungkan nuansa Teknologi dan pendidikan
+          </p>
+
+          <div className="buttonPrimary">Mulai sekarang juga</div>
+        </div>
+        <div className="mainImage">
+          <img src="/imageKubus.png" alt="Oranmen" className="mainImg" />
+        </div>
+      </div>
+      <div className="footer">
+        <p>Copyright 2023. All Rights Reserved</p>
+      </div>
     </main>
   );
 }
