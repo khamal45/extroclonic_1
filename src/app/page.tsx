@@ -1,6 +1,22 @@
+"use client";
 import Image from "next/image";
+import Link from "next/link";
 import "./module.css";
+import { signInWithGoogle } from "@libs/firebase/auth/auth";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { log } from "console";
+import RegisterLoginPage from "./login/page";
+
 export default function Home() {
+  const [isLogin, setLogin] = useState(false);
+  const router = useRouter();
+
+  const handleLogin = () => {
+    setLogin((prev) => !prev);
+  };
+
+  localStorage.setItem("key", "value");
   return (
     <main>
       <div className="header">
@@ -9,13 +25,11 @@ export default function Home() {
           <h2>EXTROCLONIC</h2>
         </div>
 
-        <li>
-          <ul>
-            <li className="active">Beranda</li>
-            <li>Game</li>
-            <li className="button">Daftar</li>
-          </ul>
-        </li>
+        <ul>
+          <li className="button" onClick={handleLogin}>
+            Login
+          </li>
+        </ul>
       </div>
 
       <div className="main">
@@ -26,16 +40,16 @@ export default function Home() {
             Extroclonic merupakan sebuah Website Quiz yang menciptakan sebuah
             arti dengan menggabungkan nuansa Teknologi dan pendidikan
           </p>
-
-          <div className="buttonPrimary">Mulai sekarang juga</div>
         </div>
         <div className="mainImage">
           <img src="/imageKubus.png" alt="Oranmen" className="mainImg" />
         </div>
       </div>
+
       <div className="footer">
         <p>Copyright 2023. All Rights Reserved</p>
       </div>
+      <RegisterLoginPage show={isLogin} onClose={handleLogin} />
     </main>
   );
 }
