@@ -6,7 +6,7 @@ import { signInWithGoogle } from "@libs/firebase/auth/auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { log } from "console";
-import RegisterLoginPage from "./login/page";
+import RegisterLoginPage from "../component/login/page";
 
 export default function Home() {
   const [isLogin, setLogin] = useState(false);
