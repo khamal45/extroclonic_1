@@ -7,7 +7,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { getProfile } from "@libs/firebase/service/database";
 import Edit from "../../component/edit/page";
-import Leaderboard from "../leaderboard/page";
+import Leaderboard from "../../component/leaderboard/page";
 
 export default function Home() {
   type Category = {
