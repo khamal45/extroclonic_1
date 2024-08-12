@@ -15,7 +15,7 @@ type ModalProps = {
   onClose: () => void;
 };
 
-export default function Edit({ show, onClose }: ModalProps) {
+const Edit: React.FC<ModalProps> = ({ show, onClose }) => {
   const [username, setUsername] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -138,4 +138,4 @@ export default function Edit({ show, onClose }: ModalProps) {
       </div>
     </main>
   );
-}
+};
