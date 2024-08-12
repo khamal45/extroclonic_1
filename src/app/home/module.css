@@ -35,6 +35,7 @@ li {
   color: #fff;
   background: #ea27d7;
   border-radius: 12px;
+  cursor: pointer;
 }
 .logoWrapper {
   display: flex;
