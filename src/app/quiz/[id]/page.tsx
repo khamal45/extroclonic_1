@@ -9,14 +9,14 @@ import { useRouter } from "next/navigation";
 import "./module.css";
 
 export default function Quiz({ params }: { params: { id: string } }) {
-  interface Result {
+  type Result = {
     type: string;
     difficulty: string;
     category: string;
     question: string;
     correct_answer: string;
     incorrect_answers: string[];
-  }
+  };
   const uid = localStorage.getItem("uid");
   const he = require("he");
   const [data, setData] = useState<Result[]>([]);

@@ -10,11 +10,11 @@ interface ModalProps {
 }
 
 export default function Leaderboard({ show, onClose }: ModalProps) {
-  interface Data {
+  type Data = {
     uid: string;
     score: string;
     username: string;
-  }
+  };
 
   const [data, setData] = useState<Data[]>([]);
 

@@ -10,10 +10,10 @@ import Edit from "../edit/page";
 import Leaderboard from "../leaderboard/page";
 
 export default function Home() {
-  interface Category {
+  type Category = {
     id: number;
     name: string;
-  }
+  };
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

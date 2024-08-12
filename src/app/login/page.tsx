@@ -10,10 +10,10 @@ import {
 import GoogleButton from "react-google-button";
 import { useRouter } from "next/navigation";
 
-interface ModalProps {
+type ModalProps = {
   show: boolean;
   onClose: () => void;
-}
+};
 
 const RegisterLoginPage: React.FC<ModalProps> = ({ show, onClose }) => {
   const [email, setEmail] = useState("");
