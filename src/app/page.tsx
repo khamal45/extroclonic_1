@@ -16,7 +16,8 @@ export default function Home() {
     setLogin((prev) => !prev);
   };
   useEffect(() => {
-    localStorage.setItem("key", "value");
+    const uid =
+      typeof window !== "undefined" ? localStorage.getItem("uid") : null;
   });
 
   return (

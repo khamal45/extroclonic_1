@@ -39,7 +39,8 @@ export default function Home() {
   let a = 0;
 
   useEffect(() => {
-    const uid = localStorage.getItem("uid");
+    const uid =
+      typeof window !== "undefined" ? localStorage.getItem("uid") : null;
     const getUsername = async () => {
       if (uid != null) {
         const username = await getProfile(uid);

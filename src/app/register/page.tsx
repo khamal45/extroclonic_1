@@ -10,11 +10,12 @@ import "./module.css";
 export default function Register() {
   const router = useRouter(); // Inisialisasi useRouter
 
-  const uid = localStorage.getItem("uid");
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState("");
 
   useEffect(() => {
+    const uid =
+      typeof window !== "undefined" ? localStorage.getItem("uid") : null;
     if (uid != null) {
       const checkAndNavigate = async () => {
         try {
@@ -39,6 +40,8 @@ export default function Register() {
 
   const handleSubmit = async () => {
     try {
+      const uid =
+        typeof window !== "undefined" ? localStorage.getItem("uid") : null;
       if (uid != null) {
         await setProfile(uid, username);
         router.push("/home");

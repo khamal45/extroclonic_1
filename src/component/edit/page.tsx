@@ -20,7 +20,8 @@ export default function Edit({ show, onClose }: ModalProps) {
   const [newUsername, setNewUsername] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isChangeUsername, setIsChangeUsername] = useState(false); // State untuk menangani mode editing
-  const uid = localStorage.getItem("uid");
+  const uid =
+    typeof window !== "undefined" ? localStorage.getItem("uid") : null;
   const router = useRouter();
 
   useEffect(() => {
