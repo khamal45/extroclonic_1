@@ -10,12 +10,12 @@ import {
 import "./module.css";
 import { signOutWithGoogle } from "@libs/firebase/auth/auth";
 
-type ModalProps = {
+interface ModalProps {
   show: boolean;
   onClose: () => void;
-};
+}
 
-const Edit: React.FC<ModalProps> = ({ show, onClose }) => {
+export default function Edit({ show, onClose }: ModalProps) {
   const [username, setUsername] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -138,4 +138,4 @@ const Edit: React.FC<ModalProps> = ({ show, onClose }) => {
       </div>
     </main>
   );
-};
+}

@@ -6,7 +6,7 @@ import "./module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getProfile } from "@libs/firebase/service/database";
-import Edit from "../edit/page";
+import Edit from "../../component/edit/page";
 import Leaderboard from "../leaderboard/page";
 
 export default function Home() {
