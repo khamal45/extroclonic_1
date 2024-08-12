@@ -1,3 +1,6 @@
+body {
+  color: #fff;
+}
 .headerQuestion {
   display: flex;
   justify-content: space-between;

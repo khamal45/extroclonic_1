@@ -36,8 +36,14 @@ export default function Quiz({ params }: { params: { id: string } }) {
       const apiLink = `https://opentdb.com/api.php?amount=10&category=${params.id}&difficulty=easy&type=multiple`;
       const response = await axios.get(apiLink);
       setData(response.data.results);
-      setLoading(false);
-      setCurrentQuestionIndex(0); // Reset question index when new data is fetched
+      console.log(response.data.results.length);
+      if (response.data.results.length === 0) {
+        router.replace("/quiz/12");
+      } else {
+        setLoading(false);
+        setCurrentQuestionIndex(0);
+      }
+      // Reset question index when new data is fetched
     } catch (error) {
       setError(error);
       setLoading(false);

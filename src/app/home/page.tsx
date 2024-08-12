@@ -15,7 +15,7 @@ export default function Home() {
     name: string;
   }
   const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [username, setUsername] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -37,8 +37,9 @@ export default function Home() {
     setShowModal(false);
   };
   let a = 0;
-  const uid = localStorage.getItem("uid");
+
   useEffect(() => {
+    const uid = localStorage.getItem("uid");
     const getUsername = async () => {
       if (uid != null) {
         const username = await getProfile(uid);
@@ -51,6 +52,7 @@ export default function Home() {
         const response = await axios.get(
           "https://opentdb.com/api_category.php"
         );
+
         setCategories(response.data.trivia_categories);
 
         setLoading(false);
