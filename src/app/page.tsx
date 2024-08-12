@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import "./module.css";
 import { signInWithGoogle } from "@libs/firebase/auth/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { log } from "console";
 import RegisterLoginPage from "./login/page";
@@ -15,8 +15,10 @@ export default function Home() {
   const handleLogin = () => {
     setLogin((prev) => !prev);
   };
+  useEffect(() => {
+    localStorage.setItem("key", "value");
+  });
 
-  localStorage.setItem("key", "value");
   return (
     <main>
       <div className="header">
