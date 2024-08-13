@@ -18,6 +18,10 @@ export default function Home() {
   useEffect(() => {
     const uid =
       typeof window !== "undefined" ? localStorage.getItem("uid") : null;
+
+    if (uid) {
+      router.push("/register");
+    }
   });
 
   return (
