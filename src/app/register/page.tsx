@@ -57,17 +57,18 @@ export default function Register() {
   }
 
   return (
-    <div className="main">
-      Enter your username :{" "}
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <br />
-      <button onClick={handleSubmit}>Submit</button>{" "}
-      {/* Tambahkan event handler untuk tombol submit */}
-    </div>
+    <form action={handleSubmit}>
+      <div className="main1">
+        Enter your username :{" "}
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <br />
+        <button type="submit">Submit</button>{" "}
+      </div>
+    </form>
   );
 }
 

@@ -1,4 +1,4 @@
-.main {
+.main1 {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
@@ -6,4 +6,8 @@
   background-color: #4d075e;
   gap: 10px;
   z-index: 100;
+}
+body {
+  margin: 0;
+  padding: 0;
 }

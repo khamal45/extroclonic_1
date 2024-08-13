@@ -43,7 +43,9 @@ export const setLeaderboard = async (
 ) => {
   try {
     const addData = async () => {
-      console.log(3);
+      if (score == "0") {
+        return;
+      }
       const dataRef = ref(database, "leaderboard/" + uid); // Misalnya, data disimpan di path 'data/nama'
       await set(dataRef, {
         username: username,
@@ -120,6 +122,7 @@ export const deleteLeaderboard = async (uid: string) => {
 
 export const deleteProfile = async (uid: string) => {
   try {
+    localStorage.removeItem("uid");
     await deleteLeaderboard(uid);
     const profileRef = ref(database, `profile/${uid}`);
     await remove(profileRef);
