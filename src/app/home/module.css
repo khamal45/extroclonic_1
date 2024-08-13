@@ -198,6 +198,7 @@ li {
 
   .main {
     flex-direction: column;
+    min-height: 500px;
   }
 
   .mainText {
@@ -221,7 +222,9 @@ li {
   h2 {
     font-size: 30px;
   }
-
+  li {
+    margin: 20px;
+  }
   .mainText h2 {
     font-size: 30px;
   }
