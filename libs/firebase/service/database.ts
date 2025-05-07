@@ -1,6 +1,7 @@
-"use client";
+"use server";
 import { get, getDatabase, ref, remove, set } from "firebase/database";
 import firebase_app from "../config";
+import { deleteCookie } from "@libs/cookies/use-cookie";
 const database = getDatabase(firebase_app);
 export const getLeaderboard = async () => {
   try {
@@ -43,20 +44,15 @@ export const setLeaderboard = async (
 ) => {
   try {
     const addData = async () => {
-      console.log(3);
-      const dataRef = ref(database, "leaderboard/" + uid); // Misalnya, data disimpan di path 'data/nama'
+      const dataRef = ref(database, "leaderboard/" + uid);
       await set(dataRef, {
         username: username,
         score: score,
       });
-      console.log("Data berhasil ditambahkan!");
     };
     const oldScore = await getScore(uid);
-    console.log(1);
     if (oldScore != null) {
-      console.log(1.5);
       if (Number(oldScore.score) > Number(score)) {
-        console.log(2);
         return null;
       } else {
         addData();
@@ -72,11 +68,10 @@ export const setLeaderboard = async (
 
 export const setProfile = async (uid: string, username: string) => {
   try {
-    const dataRef = ref(database, "profile/" + uid); // Misalnya, data disimpan di path 'data/nama'
+    const dataRef = ref(database, "profile/" + uid);
     await set(dataRef, {
       username: username,
     });
-    console.log("Data berhasil ditambahkan!");
   } catch (error) {
     console.error("Error menambahkan data:", error);
     throw error;
@@ -98,9 +93,9 @@ export const getProfile = async (uid: string) => {
     const snapshot = await get(databaseRef);
 
     if (snapshot.exists()) {
-      return snapshot.val(); // Mengembalikan data profil jika ada
+      return snapshot.val();
     } else {
-      return null; // Mengembalikan null jika data tidak ditemukan
+      return null;
     }
   } catch (error) {
     console.error("Error getting profile:", error);
@@ -111,7 +106,6 @@ export const deleteLeaderboard = async (uid: string) => {
   try {
     const leaderboardRef = ref(database, `leaderboard/${uid}`);
     await remove(leaderboardRef);
-    console.log(`Leaderboard entry for uid ${uid} deleted successfully.`);
   } catch (error) {
     console.error("Error deleting leaderboard entry:", error);
     throw error;
@@ -122,8 +116,8 @@ export const deleteProfile = async (uid: string) => {
   try {
     await deleteLeaderboard(uid);
     const profileRef = ref(database, `profile/${uid}`);
+    await deleteCookie("uid");
     await remove(profileRef);
-    console.log(`Profile for uid ${uid} deleted successfully.`);
   } catch (error) {
     console.error("Error deleting profile:", error);
     throw error;
