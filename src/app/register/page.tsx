@@ -4,76 +4,84 @@ import {
   setProfile as firebaseSetProfile,
 } from "@libs/firebase/service/database";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter dari next/router
-import "./module.css";
+import { useRouter } from "next/navigation";
+
+import { getCookie } from "@libs/cookies/use-cookie";
 
 export default function Register() {
-  const router = useRouter(); // Inisialisasi useRouter
+  const router = useRouter();
 
-  const uid = localStorage.getItem("uid");
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    if (uid != null) {
-      const checkAndNavigate = async () => {
+    const checkAndNavigate = async () => {
+      const uid = await getCookie("uid");
+      if (uid) {
         try {
-          const uidExists = await checkProfile(uid); // Lakukan pengecekan uid
+          const uidExists = await checkProfile(uid);
           if (uidExists) {
-            // Jika uid ada di leaderboard, navigasi ke halaman /home
             router.push("/home");
           } else {
-            // Jika uid tidak ada di leaderboard, lanjutkan dengan tampilan Register
             setIsLoading(false);
           }
         } catch (error) {
           console.error("Error checking uid:", error);
           setIsLoading(false);
         }
-      };
-      checkAndNavigate();
-    } else {
-      setIsLoading(false);
-    }
-  }, []); // Pemanggilan useEffect hanya sekali saat komponen dimount
+      } else {
+        setIsLoading(false);
+      }
+    };
+    checkAndNavigate();
+  }, []);
 
   const handleSubmit = async () => {
+    const uid = await getCookie("uid");
     try {
       if (uid != null) {
         await setProfile(uid, username);
         router.push("/home");
-      } // Navigasi ke halaman /home setelah berhasil menyimpan profil
+      }
     } catch (error) {
       console.error("Error setting profile:", error);
-      // Handle error accordingly
     }
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Tampilkan indikator loading jika masih memproses
+    return <div>Loading...</div>;
   }
 
   return (
-    <div className="main">
-      Enter your username :{" "}
+    <form
+      style={{
+        display: "flex",
+        gap: "10px",
+        justifyContent: "center",
+        margin: "100px",
+      }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
+      <label htmlFor="username">Enter your username :</label>
       <input
+        id="username"
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <br />
-      <button onClick={handleSubmit}>Submit</button>{" "}
-      {/* Tambahkan event handler untuk tombol submit */}
-    </div>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 
 async function setProfile(uid: string, username: string) {
   try {
-    await firebaseSetProfile(uid, username); // Panggil fungsi dari Firebase untuk menyimpan profil
-    console.log("Profile successfully set!");
+    await firebaseSetProfile(uid, username);
   } catch (error) {
     console.error("Error setting profile:", error);
-    throw error; // Dilempar untuk ditangani di komponen Register
+    throw error;
   }
 }

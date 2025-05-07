@@ -9,6 +9,7 @@ import {
 } from "@libs/firebase/service/database";
 import "./module.css";
 import { signOutWithGoogle } from "@libs/firebase/auth/auth";
+import { deleteCookie, getCookie } from "@libs/cookies/use-cookie";
 
 interface ModalProps {
   show: boolean;
@@ -19,12 +20,13 @@ export default function Edit({ show, onClose }: ModalProps) {
   const [username, setUsername] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [isChangeUsername, setIsChangeUsername] = useState(false); // State untuk menangani mode editing
-  const uid = localStorage.getItem("uid");
+  const [isChangeUsername, setIsChangeUsername] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
     const getUsername = async () => {
+      const uid = await getCookie("uid");
       if (uid != null) {
         try {
           const userProfile = await getProfile(uid);
@@ -42,23 +44,23 @@ export default function Edit({ show, onClose }: ModalProps) {
     };
 
     getUsername();
-  }, [uid]);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewUsername(e.target.value);
   };
 
   const handleEditUsername = () => {
-    setIsChangeUsername(!isChangeUsername); // Aktifkan mode editing saat tombol "Change username" ditekan
+    setIsChangeUsername(!isChangeUsername);
   };
 
   const handleSubmit = async () => {
+    const uid = await getCookie("uid");
     try {
       if (uid != null) {
         await setProfile(uid, newUsername);
         setUsername(newUsername);
-        setIsChangeUsername(false); // Nonaktifkan mode editing setelah submit berhasil
-        console.log("Username updated successfully!");
+        setIsChangeUsername(false);
       }
     } catch (error) {
       console.error("Error updating username:", error);
@@ -66,6 +68,7 @@ export default function Edit({ show, onClose }: ModalProps) {
   };
 
   const handleDeleteProfile = async () => {
+    const uid = await getCookie("uid");
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your profile? This action cannot be undone."
     );
@@ -73,7 +76,6 @@ export default function Edit({ show, onClose }: ModalProps) {
       try {
         if (uid != null) {
           await deleteProfile(uid);
-          console.log("Profile deleted successfully!");
           setUsername("");
           router.push("/");
         }
@@ -84,6 +86,7 @@ export default function Edit({ show, onClose }: ModalProps) {
   };
 
   const handleDeleteLeaderboard = async () => {
+    const uid = await getCookie("uid");
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your leaderboard? This action cannot be undone."
     );
@@ -91,7 +94,6 @@ export default function Edit({ show, onClose }: ModalProps) {
       try {
         if (uid != null) {
           await deleteLeaderboard(uid);
-          console.log("Leaderboard deleted successfully!");
         }
       } catch (error) {
         console.error("Error deleting leaderboard:", error);
@@ -102,8 +104,8 @@ export default function Edit({ show, onClose }: ModalProps) {
   const handleLogout = async () => {
     try {
       await signOutWithGoogle();
-      localStorage.removeItem("uid"); // Remove UID from localStorage
-      router.push("/"); // Redirect to the home page or any other page after logout
+      await deleteCookie("uid");
+      router.push("/");
     } catch (error) {
       console.error("Error logging out:", error);
     }

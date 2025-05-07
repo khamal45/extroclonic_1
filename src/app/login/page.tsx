@@ -6,7 +6,7 @@ import {
   signInWithGoogle,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from "@libs/firebase/auth/auth"; // Adjust this path according to your project structure
+} from "@libs/firebase/auth/auth";
 import GoogleButton from "react-google-button";
 import { useRouter } from "next/navigation";
 
@@ -33,7 +33,7 @@ const RegisterLoginPage: React.FC<ModalProps> = ({ show, onClose }) => {
       if (user) {
         router.push("/register");
       }
-      setErrorMessage(""); // Clear error message on successful registration
+      setErrorMessage("");
     } catch (error) {
       console.error("Registration error:", error);
       setErrorMessage("Registration failed. Please try again.");
@@ -49,7 +49,6 @@ const RegisterLoginPage: React.FC<ModalProps> = ({ show, onClose }) => {
   const handleLogin = async () => {
     try {
       const user = await signInWithEmailAndPassword(email, password);
-      console.log("Logged in user:", user);
       if (user) {
         router.push("/register");
       }
@@ -117,7 +116,7 @@ const RegisterLoginPage: React.FC<ModalProps> = ({ show, onClose }) => {
         <button
           onClick={() => {
             setIsRegistering(!isRegistering);
-            setErrorMessage(""); // Clear error message when switching modes
+            setErrorMessage("");
           }}
         >
           {isRegistering ? "Already Have Account" : "Don't have an account"}

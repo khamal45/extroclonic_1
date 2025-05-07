@@ -34,7 +34,7 @@ export default function Leaderboard({ show, onClose }: ModalProps) {
     <main className="overlay" onClick={onClose}>
       <div className="leaderboard" onClick={(e) => e.stopPropagation()}>
         <h1>Leaderboard</h1>
-        <table border={1}>
+        <table>
           <thead>
             <tr>
               <th>Username</th>
