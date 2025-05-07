@@ -43,7 +43,7 @@ li {
   margin: -20px;
 }
 .main {
-  background-image: url("/layer_bg.svg");
+  background-image: url("/images/layer_bg.svg");
   background-size: cover;
   background-position: bottom;
   background-repeat: no-repeat;
