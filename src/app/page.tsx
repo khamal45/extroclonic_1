@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
+
 import "./module.css";
 import { signInWithGoogle } from "@libs/firebase/auth/auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { log } from "console";
+
 import RegisterLoginPage from "./login/page";
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
     <main>
       <div className="header">
         <div className="logoWrapper">
-          <Image src="/logo.png" alt="Logo" width={100} height={100} />
+          <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
           <h2>EXTROCLONIC</h2>
         </div>
 
@@ -44,7 +44,13 @@ export default function Home() {
           </p>
         </div>
         <div className="mainImage">
-          <img src="/imageKubus.png" alt="Oranmen" className="mainImg" />
+          <Image
+            src="/images/imageKubus.png"
+            alt="Oranmen"
+            className="mainImg"
+            width={400}
+            height={400}
+          />
         </div>
       </div>
 
