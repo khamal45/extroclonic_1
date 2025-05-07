@@ -44,7 +44,7 @@ li {
   margin: -20px;
 }
 .main {
-  background-image: url("/layer_bg.svg");
+  background-image: url("/images/layer_bg.svg");
   background-size: cover;
   background-position: bottom;
   background-repeat: no-repeat;
@@ -121,7 +121,7 @@ li {
   box-sizing: border-box;
 }
 
-/* Container styling */
+
 .Container {
   display: flex;
   flex-wrap: wrap;
@@ -132,7 +132,7 @@ li {
   border-radius: 10px;
 }
 
-/* Title styling */
+
 .container h1 {
   width: 100%;
   text-align: center;
@@ -140,7 +140,7 @@ li {
   margin-bottom: 20px;
 }
 
-/* Category button styling */
+
 .category-button {
   background-color: #ffc0cb;
   color: black;
