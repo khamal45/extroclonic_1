@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 
 import firebase_app from "../config";
+import { deleteCookie, setCookie } from "../../cookies/use-cookie";
 
 const auth = getAuth(firebase_app);
 
@@ -27,8 +28,8 @@ export async function signInWithGoogle() {
     if (!result || !result.user) {
       return false;
     }
-    localStorage.setItem("uid", result.user.uid);
-    console.log(result);
+
+    await setCookie("uid", result.user.uid);
     return true;
   } catch (error) {
     return false;
@@ -38,7 +39,7 @@ export async function signInWithGoogle() {
 export async function signOutWithGoogle() {
   try {
     await auth.signOut();
-    localStorage.removeItem("uid");
+    deleteCookie("uid");
   } catch (error) {
     console.error("Error signing out with Google", error);
   }
@@ -56,8 +57,7 @@ export async function createUserWithEmailAndPassword(
     );
     const user = userCredential.user;
 
-    localStorage.setItem("uid", user.uid);
-    console.log(user);
+    setCookie("uid", user.uid);
     return true;
   } catch (error) {
     console.error("Error creating user with email and password", error);
@@ -78,8 +78,7 @@ export async function signInWithEmailAndPassword(
     );
     const user = userCredential.user;
 
-    localStorage.setItem("uid", user.uid);
-    console.log(user);
+    setCookie("uid", user.uid);
     return true;
   } catch (error) {
     console.error("Error signing in with email and password", error);
