@@ -1,9 +1,0 @@
-.main {
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #4d075e;
-  gap: 10px;
-  z-index: 100;
-}
